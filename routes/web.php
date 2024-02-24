@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,24 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('privacy-policy', function () {
+    return view('privacy-policy');
+});
+
+Auth::routes();
+
+Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
+
+/* Dashboard Controller */
+Route::get('/dashboard'                         , 'App\Http\Controllers\DashboardController@index');
+Route::get('settings'                           , 'DashboardController@globalSetting');
+Route::post('update/{id}'                       , 'DashboardController@updateSettings');
+Route::get('db-backup'                          , 'DashboardController@databaseBackup');
+
+
+
+
+Route::get('auth/google', 'App\Http\Controllers\Auth\LoginController@redirectToProvider');
+Route::get('auth/{provider}/callback', 'App\Http\Controllers\Auth\LoginController@handleProviderCallback');
+
